@@ -1,4 +1,4 @@
-package com.puppetlabs.benchmarks.membrane;
+package com.puppetlabs.benchmarks;
 
 import com.predic8.membrane.core.HttpRouter;
 import com.predic8.membrane.core.config.Path;
