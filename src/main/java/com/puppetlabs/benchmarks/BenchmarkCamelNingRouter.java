@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BenchmarkCamelNingRouter {
+
+    // TODO: this shouldn't be a global variable
+    private static final AsyncHttpClient httpClient = new AsyncHttpClient();
+
     public static void main(String[] args) throws Exception {
 
         final CamelNingProxy proxy = new CamelNingProxy(
@@ -92,8 +96,7 @@ public class BenchmarkCamelNingRouter {
 
         @Handler
         public void serviceRequest(ServletReqResp reqResp) throws IOException {
-            AsyncHttpClient client = new AsyncHttpClient();
-            NingProxyUtils.proxyServletRequest(client, getHost(), getPort(), reqResp.getReq(), reqResp.getResp());
+            NingProxyUtils.proxyServletRequest(httpClient, getHost(), getPort(), reqResp.getReq(), reqResp.getResp());
         }
     }
 

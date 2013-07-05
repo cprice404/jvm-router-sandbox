@@ -69,11 +69,21 @@ public class NingProxyUtils
             ByteStreams.copy(stream, responseOutputStream);
         }
         catch (InterruptedException e) {
+            System.out.println("INTERRUPTED EXCEPTION!");
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         catch (ExecutionException e) {
+            System.out.println("EXECUTION EXCEPTION!");
+            e.printStackTrace();
             throw new IOException(e);
         }
+        catch (IOException e) {
+            System.out.println("IO EXCEPTION!");
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
     }
 
     private static RequestBuilder cloneRequest(final HttpServletRequest request,
