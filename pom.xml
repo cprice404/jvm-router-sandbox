@@ -8,6 +8,14 @@
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
 
+
+    <repositories>
+        <repository>
+            <id>predic8-releases</id>
+            <url>http://repository.membrane-soa.org/content/groups/public</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -26,5 +34,32 @@
             <artifactId>camel-core</artifactId>
             <version>2.11.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.membrane-soa.service-proxy</groupId>
+            <artifactId>membrane-service-proxy</artifactId>
+            <version>4.0.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-distribution</artifactId>
+            <version>8.1.8.v20121106</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
 </project>
