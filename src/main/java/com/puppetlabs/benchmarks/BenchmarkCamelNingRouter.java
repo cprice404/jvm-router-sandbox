@@ -26,8 +26,8 @@ public class BenchmarkCamelNingRouter {
     public static void main(String[] args) throws Exception {
 
         final AsyncHttpClientConfig.Builder configBuilder = new AsyncHttpClientConfig.Builder();
-        configBuilder.setMaximumConnectionsPerHost(1000);
-        configBuilder.setMaximumConnectionsTotal(1000);
+        configBuilder.setMaximumConnectionsPerHost(4000);
+        configBuilder.setMaximumConnectionsTotal(4000);
         // TODO: perhaps build a pool of these?  investigate.
         final AsyncHttpClient httpClient = new AsyncHttpClient(configBuilder.build());
 
