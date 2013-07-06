@@ -1,6 +1,7 @@
 package com.puppetlabs.benchmarks;
 
 import com.ning.http.client.AsyncHttpClient;
+import com.ning.http.client.AsyncHttpClientConfig;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Handler;
@@ -22,14 +23,17 @@ import java.util.List;
 
 public class BenchmarkCamelNingRouter {
 
-    // TODO: this shouldn't be a global variable
-    private static final AsyncHttpClient httpClient = new AsyncHttpClient();
-
     public static void main(String[] args) throws Exception {
 
+        final AsyncHttpClientConfig.Builder configBuilder = new AsyncHttpClientConfig.Builder();
+        configBuilder.setMaximumConnectionsPerHost(1000);
+        configBuilder.setMaximumConnectionsTotal(1000);
+        // TODO: perhaps build a pool of these?  investigate.
+        final AsyncHttpClient httpClient = new AsyncHttpClient(configBuilder.build());
+
         final CamelNingProxy proxy = new CamelNingProxy(
-                new CamelProxyNode("localhost", 5000),
-                new CamelProxyNode("localhost", 6000));
+                new CamelProxyNode(httpClient, "localhost", 5000),
+                new CamelProxyNode(httpClient, "localhost", 6000));
 
         Server jetty = new Server(4000);
 
@@ -78,10 +82,13 @@ public class BenchmarkCamelNingRouter {
 
     public static class CamelProxyNode {
 
+        private AsyncHttpClient httpClient;
         private String host;
         private int port;
 
-        public CamelProxyNode(String host, int port) {
+        public CamelProxyNode(AsyncHttpClient httpClient,
+                              String host, int port) {
+            this.httpClient = httpClient;
             this.host = host;
             this.port = port;
         }
